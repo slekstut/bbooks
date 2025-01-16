@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Knyga Details{% endblock %}
+
+{% block body %}
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold mb-6 text-center">Knyga Details</h1>
+
+    <div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4">{{ knyga.title }}</h2>
+        <p class="text-gray-700 mb-2"><span class="font-medium">Author:</span> {{ knyga.author }}</p>
+        <p class="text-gray-700 mb-2"><span class="font-medium">Published Date:</span> {{ knyga.publishedDate }}</p>
+        <p class="text-gray-700 mb-2"><span class="font-medium">ISBN:</span> {{ knyga.isbn }}</p>
+        <p class="text-gray-700 mb-2"><span class="font-medium">Description:</span> {{ knyga.description }}</p>
+
+        <div class="mt-6 flex justify-between">
+            <a href="{{ path('app_knyga_index') }}" class="text-gray-700 hover:underline">Back to list</a>
+            <div class="flex space-x-4">
+                <a href="{{ path('app_knyga_edit', { id: knyga.id }) }}" class="text-green-500 hover:underline">Edit</a>
+                <form method="post" action="{{ path('app_knyga_delete', { id: knyga.id }) }}" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ knyga.id) }}">
+                    <button type="submit" class="text-red-500 hover:underline">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

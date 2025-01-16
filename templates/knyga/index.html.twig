@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Knyga Index{% endblock %}
+
+{% block body %}
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-bold mb-6 text-center">Knyga List</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for knyga in knygos %}
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h2 class="text-xl font-bold">{{ knyga.title }}</h2>
+                <p class="text-gray-700">Author: <span class="font-medium">{{ knyga.author }}</span></p>
+                <p class="text-gray-700">Published: <span class="font-medium">{{ knyga.publishedDate }}</span></p>
+                <p class="text-gray-700">ISBN: <span class="font-medium">{{ knyga.isbn }}</span></p>
+                <p class="text-gray-700 truncate">Description: <span class="font-medium">{{ knyga.description }}</span></p>
+
+                <div class="mt-4 flex justify-between items-center">
+                    <a href="{{ path('app_knyga_show', { id: knyga.id }) }}" class="text-blue-500 hover:underline">View</a>
+                    <div class="flex space-x-4">
+                        <a href="{{ path('app_knyga_edit', { id: knyga.id }) }}" class="text-green-500 hover:underline">Edit</a>
+                        <form method="post" action="{{ path('app_knyga_delete', { id: knyga.id }) }}" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ knyga.id) }}">
+                            <button type="submit" class="text-red-500 hover:underline">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="col-span-full text-center text-gray-500">No records found.</p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-6 text-center">
+        <a href="{{ path('app_knyga_new') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Add New Knyga</a>
+    </div>
+</div>
+{% endblock %}
