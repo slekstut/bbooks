@@ -12,25 +12,28 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-    <header class="flex bg-blue-500 text-white py-4">
+    <body class="flex flex-col min-h-screen">
+    <header class="bg-blue-500 text-white py-4">
         <div class="container mx-auto flex justify-between items-center">
             <div class="">
-                <a href="{{ path('app_knyga_index') }}">BooksApp</a>
+                <a href="{{ path('app_home') }}">BooksApp</a>
             </div>
             <nav>
                 <ul class="flex space-x-4">
-                    <li><a href="{{ path('app_knyga_index') }}">Home</a></li>
+                    <li><a href="{{ path('app_home') }}">Home</a></li>
+                    <li><a href="{{ path('app_knyga_index') }}">Products</a></li>
                     <li><a href="{{ path('app_knyga_new') }}">Add New</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    <main class="container mx-auto mt-8">
+    <main class="flex-grow container mx-auto my-8">
         {% block body %}{% endblock %}
     </main>
-    <footer class="flex">
-        <p>&copy; {{ "now"|date("Y") }} BooksApp</p>
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; {{ "now"|date("Y") }} BooksApp</p>
+        </div>
     </footer>
-</body>
+    </body>
 </html>

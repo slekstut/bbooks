@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <h1 class="text-3xl font-bold">{{ message }}</h1>
+    <p class="mt-4">To see the books - navigate to <a href="{{ path('app_knyga_index') }}" class="underline uppercase">Products</a>.</p>
+{% endblock %}

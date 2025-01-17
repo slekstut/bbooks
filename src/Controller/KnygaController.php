@@ -52,23 +52,40 @@ final class KnygaController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_knyga_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Knyga $knyga, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(KnygaType::class, $knyga);
-        $form->handleRequest($request);
+public function edit(Request $request, Knyga $knyga, EntityManagerInterface $entityManager): Response
+{
+    dump('Before form submission:', $knyga->getPublishedDate()); // Debug before form handling
+    dump('request->all',$request->request->all()); // Check the raw form data
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+    $form = $this->createForm(KnygaType::class, $knyga);
+    $form->handleRequest($request);
 
-            return $this->redirectToRoute('app_knyga_index', [], Response::HTTP_SEE_OTHER);
+    // Add debugging block here
+    if ($form->isSubmitted()) {
+        dump('Form submitted:', $form->isSubmitted());
+        dump('Form valid:', $form->isValid());
+        dump('Form errors:', $form->getErrors(true, false)); // Check all form errors
+        dump('PublishedDate field errors:', $form->get('publishedDate')->getErrors(true, false)); // Check errors on publishedDate
+    
+        foreach ($form->get('publishedDate')->getErrors(true, false) as $error) {
+            dump('PublishedDate error message:', $error->getMessage());
         }
-
-        return $this->render('knyga/edit.html.twig', [
-            'knyga' => $knyga,
-            'form' => $form->createView(),
-            'action' => 'Edit',
-        ]);
+    
+        dump('After form submission:', $knyga->getPublishedDate());
     }
+    
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_knyga_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('knyga/edit.html.twig', [
+        'form' => $form->createView(),
+        'action' => 'Edit',
+    ]);
+}
 
     #[Route('/{id}', name: 'app_knyga_delete', methods: ['POST'])]
     public function delete(Request $request, Knyga $knyga, EntityManagerInterface $entityManager): Response
