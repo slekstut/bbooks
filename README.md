@@ -1,7 +1,7 @@
-# Bbooks test app symfony 6.4
+# Bbooks test app symfony 6.4 + tailwindcss
 Just a demo purpose
 
-**Some app screenshots**  
+**Some app screenshots:**  
 <img src="https://live.staticflickr.com/65535/54271416855_cc67158bc0_b.jpg" alt="Screenshot1" width="500" />
 <img src="https://live.staticflickr.com/65535/54270104747_fdcf7cef26_b.jpg" alt="Screenshot2" width="500" />
 <img src="https://live.staticflickr.com/65535/54270104752_2f5b7d08d1_b.jpg" alt="Screenshot" width="500" />
